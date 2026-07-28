@@ -38,6 +38,10 @@ ENV PATH="/code/.venv/bin:$PATH"
 RUN apt-get update && apt-get install -y --no-install-recommends curl \
     && rm -rf /var/lib/apt/lists/*
 
+# نصب bun برای runtime (داشبورد هنگام استارت نیاز به bun دارد)
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:$PATH"
+
 COPY start-railway.sh /start-railway.sh
 RUN chmod +x /start-railway.sh /code/start.sh
 # دانلود قالب رسمی صفحه‌ی ساب (subscription-template) در زمان build
