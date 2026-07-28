@@ -35,7 +35,7 @@ COPY --from=builder /build /code
 WORKDIR /code
 ENV PATH="/code/.venv/bin:$PATH"
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
+RUN apt-get update && apt-get install -y --no-install-recommends curl unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # نصب bun برای runtime (داشبورد هنگام استارت نیاز به bun دارد)
