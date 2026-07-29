@@ -46,6 +46,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl unzip \
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 
+# نصب PasarGuard Node Agent (برای حالت ALL_IN_ONE)
+RUN curl -fsSL -o /tmp/pg-node.zip https://github.com/PasarGuard/node/releases/latest/download/pasarguard-node-linux-amd64.zip \
+    && unzip -o /tmp/pg-node.zip -d /tmp/pg-node \
+    && mv /tmp/pg-node/pasarguard-node /usr/local/bin/pasarguard-node \
+    && chmod +x /usr/local/bin/pasarguard-node \
+    && rm -rf /tmp/pg-node /tmp/pg-node.zip
+
 COPY start-railway.sh /start-railway.sh
 RUN chmod +x /start-railway.sh /code/start.sh
 # دانلود قالب رسمی صفحه‌ی ساب (subscription-template) در زمان build

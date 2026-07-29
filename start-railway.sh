@@ -15,4 +15,15 @@ export UVICORN_PROXY_HEADERS="${UVICORN_PROXY_HEADERS:-true}"
 export UVICORN_FORWARDED_ALLOW_IPS="${UVICORN_FORWARDED_ALLOW_IPS:-*}"
 
 echo "Starting PasarGuard panel on port ${UVICORN_PORT}..."
+
+# شروع PasarGuard Node Agent در پس‌زمینه (حالت ALL_IN_ONE)
+if [ -x /usr/local/bin/pasarguard-node ]; then
+    PANEL_URL="https://${SUB_PUBLIC_HOST:-${RAILWAY_PUBLIC_DOMAIN:-localhost}}"
+    echo "Starting PasarGuard Node Agent (panel: ${PANEL_URL})..."
+    /usr/local/bin/pasarguard-node run --panel "$PANEL_URL" &
+    NODE_PID=$!
+    echo "Node Agent started with PID ${NODE_PID}"
+    sleep 2
+fi
+
 exec /code/start.sh
