@@ -30,7 +30,7 @@ RUN sed -i 's/bind_args\["host"\] = ip/bind_args["host"] = server_settings.host/
 
 # پچ ۳: همیشه داشبورد را mount کن (حتی وقتی DEBUG=true باشد)
 COPY patches/fix-dashboard.py /tmp/fix-dashboard.py
-RUN python3 /tmp/fix-dashboard.py dashboard/__init__.py
+RUN python3 /tmp/fix-dashboard.py dashboard/__init__.py && grep -A3 "run_dashboard" dashboard/__init__.py
 
 RUN uv sync --frozen --no-dev
 
