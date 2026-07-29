@@ -29,7 +29,8 @@ RUN sed -i 's/except ValueError, socket.gaierror:/except (ValueError, socket.gai
 RUN sed -i 's/bind_args\["host"\] = ip/bind_args["host"] = server_settings.host/' main.py
 
 # پچ ۳: همیشه داشبورد را mount کن (حتی وقتی DEBUG=true باشد)
-RUN echo 'content = open("dashboard/__init__.py").read(); content = content.replace("if runtime_settings.debug:", "if False:"); open("dashboard/__init__.py", "w").write(content)' | python3
+COPY patches/fix-dashboard.py /tmp/fix-dashboard.py
+RUN python3 /tmp/fix-dashboard.py dashboard/__init__.py
 
 RUN uv sync --frozen --no-dev
 
