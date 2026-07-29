@@ -28,6 +28,9 @@ RUN sed -i 's/except ValueError, socket.gaierror:/except (ValueError, socket.gai
 # باعث "Application failed to respond" می‌شود؛ این پچ همیشه 0.0.0.0 را اجباری می‌کند.
 RUN sed -i 's/bind_args\["host"\] = ip/bind_args["host"] = server_settings.host/' main.py
 
+# پچ ۳: همیشه داشبورد را mount کن (حتی وقتی DEBUG=true باشد)
+RUN sed -i 's/if runtime_settings.debug:/if False:/' dashboard/__init__.py
+
 RUN uv sync --frozen --no-dev
 
 FROM python:$PYTHON_VERSION-slim-bookworm
