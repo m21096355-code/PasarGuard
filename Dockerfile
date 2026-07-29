@@ -49,7 +49,7 @@ ENV PATH="/root/.bun/bin:$PATH"
 # نصب PasarGuard Node Agent (برای حالت ALL_IN_ONE)
 RUN curl -fsSL -o /tmp/pg-node.zip https://github.com/PasarGuard/node/releases/latest/download/pasarguard-node-linux-amd64.zip \
     && unzip -o /tmp/pg-node.zip -d /tmp/pg-node \
-    && mv /tmp/pg-node/pasarguard-node /usr/local/bin/pasarguard-node \
+    && mv /tmp/pg-node/pasarguard-node-linux-amd64 /usr/local/bin/pasarguard-node \
     && chmod +x /usr/local/bin/pasarguard-node \
     && rm -rf /tmp/pg-node /tmp/pg-node.zip
 
